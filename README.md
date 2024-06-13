@@ -1,12 +1,11 @@
 # System Login
 ---
 เทคโนโลยี
-Spring Boot, PostgreSQL, 
-Kafka
-Passay
+Spring Boot, PostgreSQL, Kafka, Passay, JWT
+---
+## dependencies
 Lombok
 Mapstruct
-JWT
 Spring JPA
 Spring Security
 Spring Validation
@@ -15,6 +14,7 @@ Spring Mail (Java Mail Sender)
 Spring Devtools
 Spring Configuration Processor
 ---
+## Structure
 com
   +- example
     +- login
