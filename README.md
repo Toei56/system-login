@@ -1,8 +1,6 @@
 # System Login
----
 เทคโนโลยี
 Spring Boot, PostgreSQL, Kafka, Passay, JWT
----
 ## dependencies
 Lombok
 Mapstruct
