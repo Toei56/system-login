@@ -5,15 +5,12 @@ spring:
   token:
     secret: m#MySecret5339T
     issuer: BackendService
-  email:
-    from: YOUR_ACCOUNT@gmail.com #spxth5735
 ---
 spring:
   profiles:
     active:
       - dev
 ---
-
 server:
   port: 1150
 spring:
@@ -37,14 +34,3 @@ spring:
       - localhost:9092
     consumer:
       group-id: "my-awesome-app"
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: YOUR_USERNAME #spxth5735
-    password: YOUR_PASSWORD #gkdpamanfwkfqpia
-    properties:
-      mail :
-        smtp:
-          auth: true
-          starttls:
-            enable: true

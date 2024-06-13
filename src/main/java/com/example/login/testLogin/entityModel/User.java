@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,4 +32,13 @@ public class User extends BaseModel {
 
     @Column
     private String phone_number;
+
+    @Column
+    private boolean activated;
+
+    @Column
+    private String token;
+
+    @Column
+    private Date tokenExpire;
 }

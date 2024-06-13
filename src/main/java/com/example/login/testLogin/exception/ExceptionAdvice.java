@@ -22,13 +22,12 @@ public class ExceptionAdvice {
     }
 
     @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ErrorResponse> handleUserDuplicate(BaseException ex) {
+    public ResponseEntity<ErrorResponse> handleUserException(BaseException ex) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.EXPECTATION_FAILED.value());
         errorResponse.setError(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.EXPECTATION_FAILED);
     }
-
 
     @Getter
     @Setter

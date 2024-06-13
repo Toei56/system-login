@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ChatMessageRequest {
+public class UserLoginResponse {
 
-    private String message;
+    private String token;
 }

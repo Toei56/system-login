@@ -1,9 +1,7 @@
 package com.example.login.testLogin.controller.api;
 
 import com.example.login.testLogin.business.UserBusiness;
-import com.example.login.testLogin.controller.request.UserLoginRequest;
-import com.example.login.testLogin.controller.request.UserRegisterRequest;
-import com.example.login.testLogin.controller.request.UserRegisterResponse;
+import com.example.login.testLogin.controller.request.*;
 import com.example.login.testLogin.exception.BaseException;
 import com.example.login.testLogin.exception.ValidateException;
 import jakarta.validation.Valid;
@@ -38,7 +36,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(
+    public ResponseEntity<UserLoginResponse> login(
             @Valid @RequestBody UserLoginRequest loginRequest,
             BindingResult bindingResult) throws BaseException {
         if (bindingResult.hasErrors()) {
@@ -47,8 +45,20 @@ public class UserController {
             });
         }
 
-        String login = userBusiness.login(loginRequest);
+        UserLoginResponse login = userBusiness.login(loginRequest);
         return ResponseEntity.ok(login);
+    }
+
+    @PostMapping("/activate")
+    public ResponseEntity<ActivateResponse> activate(@RequestBody ActivateRequest activateRequest) throws BaseException {
+        ActivateResponse response = userBusiness.activate(activateRequest);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/resend-activation-email")
+    public ResponseEntity<Void> resendActivationEmail(@RequestBody ResendActivateEmailRequest request) throws BaseException {
+        userBusiness.resendActivationEmail(request);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/refresh-token")

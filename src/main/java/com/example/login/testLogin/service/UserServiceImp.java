@@ -8,6 +8,8 @@ import com.example.login.testLogin.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -22,7 +24,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User createUser(UserRegisterRequest request) throws BaseException {
+    public User createUser(UserRegisterRequest request, String token, Date tokenExpireDate) throws BaseException {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw UserException.createDuplicate();
         }
@@ -32,7 +34,9 @@ public class UserServiceImp implements UserService {
                 .setEmail(request.getEmail())
                 .setPassword(bCryptPasswordEncoder.encode(request.getPassword()))
                 .setPhone_number(request.getPhone_number())
-                .setRole(request.getRole());
+                .setRole(request.getRole())
+                .setToken(token)
+                .setTokenExpire(tokenExpireDate);
         return userRepository.save(user);
     }
 
@@ -44,6 +48,16 @@ public class UserServiceImp implements UserService {
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public Optional<User> findByToken(String token) {
+        return userRepository.findByToken(token);
+    }
+
+    @Override
+    public User update(User user) {
+        return userRepository.save(user);
     }
 
     @Override
