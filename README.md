@@ -1,6 +1,6 @@
 # System Login
 ## Technology
-Spring Boot, PostgreSQL, Kafka, Passay, JWT
+Spring Boot, Rest API, PostgreSQL, Kafka, Passay, JWT
 ## dependencies
 Lombok
 Mapstruct
