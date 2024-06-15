@@ -1,8 +1,7 @@
-package com.example.login.testLogin.business;
+package com.example.login.business;
 
 import com.example.login.common.EmailRequest;
-import com.example.login.testLogin.exception.BaseException;
-import com.example.login.testLogin.exception.EmailException;
+import com.example.login.exception.NotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -24,12 +23,12 @@ public class EmailBusiness {
         this.kafkaEmailTemplate = kafkaEmailTemplate;
     }
 
-    public void sendActivateUserMail(String email, String name, String token) throws BaseException {
+    public void sendActivateUserMail(String email, String name, String token) {
         String html;
         try {
             html = readEmailTemplate();
         } catch (IOException ex) {
-            throw EmailException.templateNotFound();
+            throw NotFoundException.templateNotFound();
         }
 
         log.info("Token = " + token);

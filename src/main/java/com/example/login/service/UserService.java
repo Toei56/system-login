@@ -1,15 +1,14 @@
-package com.example.login.testLogin.service;
+package com.example.login.service;
 
-import com.example.login.testLogin.controller.request.UserRegisterRequest;
-import com.example.login.testLogin.entityModel.User;
-import com.example.login.testLogin.exception.BaseException;
+import com.example.login.controller.request.UserRegisterRequest;
+import com.example.login.entityModel.User;
 
 import java.util.Date;
 import java.util.Optional;
 
 public interface UserService {
 
-    User createUser(UserRegisterRequest registerRequest, String token, Date tokenExpireDate) throws BaseException;
+    User createUser(UserRegisterRequest registerRequest, String token, Date tokenExpireDate);
 
     Optional<User> findByEmail(String email);
 

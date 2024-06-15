@@ -1,7 +1,7 @@
-package com.example.login.testLogin.config.token;
+package com.example.login.config.token;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.login.testLogin.service.TokenService;
+import com.example.login.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;

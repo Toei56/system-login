@@ -1,7 +1,6 @@
-package com.example.login.testLogin;
+package com.example.login;
 
-import com.example.login.testLogin.business.EmailBusiness;
-import com.example.login.testLogin.exception.BaseException;
+import com.example.login.business.EmailBusiness;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

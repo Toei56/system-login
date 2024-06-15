@@ -1,7 +1,7 @@
-package com.example.login.testLogin.config;
+package com.example.login.config;
 
-import com.example.login.testLogin.config.token.TokenFilter;
-import com.example.login.testLogin.service.TokenService;
+import com.example.login.config.token.TokenFilter;
+import com.example.login.service.TokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

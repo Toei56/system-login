@@ -1,4 +1,4 @@
-package com.example.login.testLogin.config;
+package com.example.login.config;
 
 import com.example.login.common.EmailRequest;
 import org.apache.kafka.clients.producer.ProducerConfig;

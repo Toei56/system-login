@@ -1,10 +1,9 @@
-package com.example.login.testLogin.service;
+package com.example.login.service;
 
-import com.example.login.testLogin.controller.request.UserRegisterRequest;
-import com.example.login.testLogin.entityModel.User;
-import com.example.login.testLogin.exception.BaseException;
-import com.example.login.testLogin.exception.UserException;
-import com.example.login.testLogin.repository.UserRepository;
+import com.example.login.controller.request.UserRegisterRequest;
+import com.example.login.entityModel.User;
+import com.example.login.exception.ConflictException;
+import com.example.login.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +22,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User createUser(UserRegisterRequest request, String token, Date tokenExpireDate) throws BaseException {
+    public User createUser(UserRegisterRequest request, String token, Date tokenExpireDate) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw UserException.createDuplicate();
+            throw ConflictException.createDuplicate();
         }
 
         User user = new User()

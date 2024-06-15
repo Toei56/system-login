@@ -1,9 +1,8 @@
-package com.example.login.testLogin.controller.api;
+package com.example.login.controller.api;
 
-import com.example.login.testLogin.business.UserBusiness;
-import com.example.login.testLogin.controller.request.*;
-import com.example.login.testLogin.exception.BaseException;
-import com.example.login.testLogin.exception.ValidateException;
+import com.example.login.business.UserBusiness;
+import com.example.login.controller.request.*;
+import com.example.login.exception.BadRequestException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +23,10 @@ public class UserController {
     @PostMapping("/register")
     public UserRegisterResponse register(
             @Valid @RequestBody UserRegisterRequest registerRequest,
-            BindingResult bindingResult) throws BaseException {
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             bindingResult.getFieldErrors().forEach(fieldError -> {
-                throw new ValidateException(fieldError.getField() + " : " + fieldError.getDefaultMessage());
+                throw BadRequestException.validateException(fieldError.getField() + " : " + fieldError.getDefaultMessage());
             });
         }
 
@@ -38,10 +37,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<UserLoginResponse> login(
             @Valid @RequestBody UserLoginRequest loginRequest,
-            BindingResult bindingResult) throws BaseException {
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             bindingResult.getFieldErrors().forEach(fieldError -> {
-                throw new ValidateException(fieldError.getField() + " : " + fieldError.getDefaultMessage());
+                throw BadRequestException.validateException(fieldError.getField() + " : " + fieldError.getDefaultMessage());
             });
         }
 
@@ -50,19 +49,19 @@ public class UserController {
     }
 
     @PostMapping("/activate")
-    public ResponseEntity<ActivateResponse> activate(@RequestBody ActivateRequest activateRequest) throws BaseException {
+    public ResponseEntity<ActivateResponse> activate(@RequestBody ActivateRequest activateRequest) {
         ActivateResponse response = userBusiness.activate(activateRequest);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/resend-activation-email")
-    public ResponseEntity<Void> resendActivationEmail(@RequestBody ResendActivateEmailRequest request) throws BaseException {
+    public ResponseEntity<Void> resendActivationEmail(@RequestBody ResendActivateEmailRequest request) {
         userBusiness.resendActivationEmail(request);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/refresh-token")
-    public ResponseEntity<String> refreshToken() throws BaseException {
+    public ResponseEntity<String> refreshToken() {
         String response = userBusiness.refreshToken();
         return ResponseEntity.ok(response);
     }

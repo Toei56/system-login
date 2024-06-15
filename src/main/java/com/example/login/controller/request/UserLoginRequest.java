@@ -1,5 +1,6 @@
-package com.example.login.testLogin.controller.request;
+package com.example.login.controller.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -13,6 +14,7 @@ public class UserLoginRequest {
 
     @NotEmpty
     @Size(min = 6, max = 30)
+    @Email
     private String email;
 
     @NotEmpty

@@ -1,13 +1,12 @@
-package com.example.login.testLogin.business;
+package com.example.login.business;
 
-import com.example.login.testLogin.controller.request.*;
-import com.example.login.testLogin.entityModel.User;
-import com.example.login.testLogin.exception.BaseException;
-import com.example.login.testLogin.exception.UserException;
-import com.example.login.testLogin.mapper.UserMapper;
-import com.example.login.testLogin.service.TokenService;
-import com.example.login.testLogin.service.UserService;
-import com.example.login.testLogin.util.SecurityUtil;
+import com.example.login.controller.request.*;
+import com.example.login.entityModel.User;
+import com.example.login.exception.*;
+import com.example.login.mapper.UserMapper;
+import com.example.login.service.TokenService;
+import com.example.login.service.UserService;
+import com.example.login.util.SecurityUtil;
 import io.netty.util.internal.StringUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class UserBusiness {
         this.emailBusiness = emailBusiness;
     }
 
-    public UserRegisterResponse register(UserRegisterRequest registerRequest) throws BaseException {
+    public UserRegisterResponse register(UserRegisterRequest registerRequest) {
         String token = SecurityUtil.generateToken();
 
         User user = userService.createUser(registerRequest, token, nextHour());
@@ -42,27 +41,27 @@ public class UserBusiness {
         return userMapper.USER_REGISTER_RESPONSE(user);
     }
 
-    public ActivateResponse activate(ActivateRequest activateRequest) throws BaseException {
+    public ActivateResponse activate(ActivateRequest activateRequest) {
         String token = activateRequest.getToken();
         if (StringUtil.isNullOrEmpty(token)) {
-            throw UserException.activateNoToken();
+            throw BadRequestException.activateNoToken();
         }
 
         Optional<User> opt = userService.findByToken(token);
         if (opt.isEmpty()) {
-            throw UserException.activateFail();
+            throw BadRequestException.activateFail();
         }
 
         User user = opt.get();
         if (user.isActivated()) {
-            throw UserException.activateAlready();
+            throw ConflictException.activateAlready();
         }
 
         Date now = new Date();
         Date tokenExpire = user.getTokenExpire();
         if (now.after(tokenExpire)) {
             // TODO: re-email or remove user
-            throw UserException.activateTokenExpire();
+            throw GoneException.activateTokenExpire();
         }
 
         user.setActivated(true);
@@ -73,20 +72,20 @@ public class UserBusiness {
         return activate;
     }
 
-    public void resendActivationEmail(ResendActivateEmailRequest request) throws BaseException {
+    public void resendActivationEmail(ResendActivateEmailRequest request) {
         String email = request.getEmail();
         if (StringUtil.isNullOrEmpty(email)) {
-            throw UserException.resendActivationNoEmail();
+            throw BadRequestException.resendActivationNoEmail();
         }
 
         Optional<User> opt = userService.findByEmail(email);
         if (opt.isEmpty()) {
-            throw UserException.resendActivationEmailNotFound();
+            throw NotFoundException.resendActivationEmailNotFound();
         }
 
         User user = opt.get();
         if (user.isActivated()) {
-            throw UserException.activateAlready();
+            throw ConflictException.activateAlready();
         }
 
         user.setToken(SecurityUtil.generateToken());
@@ -106,26 +105,26 @@ public class UserBusiness {
 
         try {
             emailBusiness.sendActivateUserMail(user.getEmail(), user.getUsername(), token);
-        } catch (BaseException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         log.info("Token: " + token);
     }
 
-    public UserLoginResponse login(UserLoginRequest loginRequest) throws BaseException {
+    public UserLoginResponse login(UserLoginRequest loginRequest) {
         Optional<User> opt = userService.findByEmail(loginRequest.getEmail());
         if (opt.isEmpty()) {
-            throw UserException.loginFailEmailNotFound();
+            throw NotFoundException.loginFailEmailNotFound();
         }
 
         User user = opt.get();
         if (!userService.matchPassword(loginRequest.getPassword(), user.getPassword())) {
-            throw UserException.loginFailPasswordIncorrect();
+            throw NotFoundException.loginFailPasswordIncorrect();
         }
 
         if (!user.isActivated()) {
-            throw UserException.loginFailUserUnactivated();
+            throw ForbiddenException.loginFailUserUnactivated();
         }
 
         UserLoginResponse response = new UserLoginResponse();
@@ -133,17 +132,17 @@ public class UserBusiness {
         return response;
     }
 
-    public String refreshToken() throws BaseException {
+    public String refreshToken() {
         Optional<Long> opt = SecurityUtil.getCurrentUserId();
         if (opt.isEmpty()) {
-            throw UserException.unauthorized();
+            throw UnauthorizedException.unauthorized();
         }
 
         Long userId = opt.get();
 
         Optional<User> optUser = userService.findById(userId);
         if (optUser.isEmpty()) {
-            throw UserException.notFound();
+            throw NotFoundException.notFound();
         }
 
         User user = optUser.get();

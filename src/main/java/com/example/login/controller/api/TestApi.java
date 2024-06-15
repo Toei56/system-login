@@ -1,4 +1,4 @@
-package com.example.login.testLogin.controller.api;
+package com.example.login.controller.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

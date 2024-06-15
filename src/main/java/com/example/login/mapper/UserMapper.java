@@ -1,7 +1,7 @@
-package com.example.login.testLogin.mapper;
+package com.example.login.mapper;
 
-import com.example.login.testLogin.controller.request.UserRegisterResponse;
-import com.example.login.testLogin.entityModel.User;
+import com.example.login.controller.request.UserRegisterResponse;
+import com.example.login.entityModel.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,4 +1,4 @@
-package com.example.login.testLogin.controller.request;
+package com.example.login.controller.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

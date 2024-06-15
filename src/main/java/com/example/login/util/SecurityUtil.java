@@ -1,4 +1,4 @@
-package com.example.login.testLogin.util;
+package com.example.login.util;
 
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;

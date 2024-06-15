@@ -1,24 +1,24 @@
 package com.example.login.exception;
 
-public class BedException extends RuntimeException {
-    public BedException(String message) {
+public class BadRequestException extends RuntimeException {
+    public BadRequestException(String message) {
         super(message);
     }
 
-    public static BedException validateException(String message) {
-        return new BedException(message);
+    public static BadRequestException validateException(String message) {
+        return new BadRequestException(message);
     }
 
-    public static BedException activateNoToken() {
-        return new BedException("user.activate.no.token");
+    public static BadRequestException activateNoToken() {
+        return new BadRequestException("user.activate.no.token");
     }
 
-    public static BedException activateFail() {
-        return new BedException("user.activate.fail");
+    public static BadRequestException activateFail() {
+        return new BadRequestException("user.activate.fail");
     }
 
-    public static BedException resendActivationNoEmail() {
-        return new BedException("user.activation.no.email");
+    public static BadRequestException resendActivationNoEmail() {
+        return new BadRequestException("user.activation.no.email");
     }
 
 }
