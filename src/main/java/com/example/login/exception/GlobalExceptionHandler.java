@@ -1,4 +1,4 @@
-package com.example.login.testLogin.exception;
+package com.example.login.exception;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,12 +21,12 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ErrorResponse> handleUserException(BaseException ex) {
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleUserException(UserException ex) {
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+        errorResponse.setStatus(HttpStatus.CONFLICT.value());
         errorResponse.setError(ex.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.EXPECTATION_FAILED);
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
     @Getter

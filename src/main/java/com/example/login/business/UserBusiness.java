@@ -1,6 +1,5 @@
 package com.example.login.testLogin.business;
 
-import com.example.login.common.EmailRequest;
 import com.example.login.testLogin.controller.request.*;
 import com.example.login.testLogin.entityModel.User;
 import com.example.login.testLogin.exception.BaseException;
@@ -11,7 +10,6 @@ import com.example.login.testLogin.service.UserService;
 import com.example.login.testLogin.util.SecurityUtil;
 import io.netty.util.internal.StringUtil;
 import lombok.extern.log4j.Log4j2;
-import org.apache.zookeeper.Op;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
