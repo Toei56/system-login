@@ -1,5 +1,11 @@
-# System Login
+# System Login Practice
+System Login ทำขึ้นเพื่อศึกษา Spring boot, Restful, Database, Kafka และการทำงานของระบบ
+## Structure Modules
+* login (server backend, producer)
+* email (consumer)
+* common ทำหน้าที่เป็นตัวกลางเพื่อแชร์ข้อมูล email ให้กับ kafka
 
+**หลักการทำงานคร่าวๆ** เมื่อ user ทำการ register เข้ามา server จะทำการบันทึกข้อมูลลง database ในขณะเดียวกัน server ซึ่งเป็น producer จะทำการส่งข้อมูลที่เกี่ยวกับ email ไปให้กับทาง kafka และผู้รับ consumer ที่ทำหน้าที่ส่ง email จะทำการส่ง email แทน และเมื่อ user ทำการยืนยันอีเมลเรียบร้อยแล้ว จึงจะสามารถเข้าสู่ระบบได้
 ## Features
 * Java 17
 * Spring Boot 3
@@ -11,7 +17,7 @@
 * Lombok
 * Mapstruct
 ---
-## Structure
+## Structure backend
     └── src ─ main ─ java ─ com ─ example
 
     ── login
@@ -72,14 +78,14 @@
 ## Dependencies
 PostgreSQL, JWT, Kafka, Passay, Mapstruct, Lombok, Spring JPA, Spring Security, Spring Validation, Spring Web, Spring Mail (Java Mail Sender), Spring Devtools, Spring Configuration Processor
 ### pom.xml
-Spring JPA คือ 
+Spring JPA คือ
 ```
     <dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-data-jpa</artifactId>
 	</dependency>
 ```
-Spring Security คือ 
+Spring Security คือ
 ```
     <dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -91,28 +97,28 @@ Spring Security คือ
 		<scope>test</scope>
 	</dependency>
 ```
-Spring Validation คือ 
+Spring Validation ช่วยในการตรวจสอบความถูกต้องของข้อมูล
 ```
     <dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-validation</artifactId>
 	</dependency>
 ```
-Spring Web คือ 
+Spring Web คือ
 ```
     <dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
 ```
-Spring Mail (Java Mail Sender) คือ 
+Spring Mail (Java Mail Sender) คือ
 ```
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-mail</artifactId>
 	</dependency>
 ```
-Spring Devtools คือ 
+Spring Devtools คือ
 ```
     <dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -121,7 +127,7 @@ Spring Devtools คือ
 		<optional>true</optional>
 	</dependency>
 ```
-Spring Configuration Processor คือ 
+Spring Configuration Processor คือ
 ```
     <dependency>
 		<groupId>org.springframework.boot</groupId>
@@ -129,7 +135,7 @@ Spring Configuration Processor คือ
 		<optional>true</optional>
 	</dependency>
 ```
-PostgreSQL (Spring PostgreSQL Driver) คือ 
+PostgreSQL (Spring PostgreSQL Driver) คือ
 ```
     <dependency>
 		<groupId>org.postgresql</groupId>
@@ -137,7 +143,7 @@ PostgreSQL (Spring PostgreSQL Driver) คือ
 		<scope>runtime</scope>
 	</dependency>
 ```
-Lombok คือ 
+Lombok คือ
 ```
     <dependency>
 		<groupId>org.projectlombok</groupId>
@@ -145,7 +151,7 @@ Lombok คือ
 		<optional>true</optional>
 	</dependency>
 ```
-JWT คือ 
+JWT คือ
 ```
     <dependency>
 		<groupId>com.auth0</groupId>
@@ -153,7 +159,7 @@ JWT คือ
 		<version>4.4.0</version>
 	</dependency>
 ```
-Kafka คือ 
+Kafka คือ
 ```
     <dependency>
 		<groupId>org.springframework.kafka</groupId>
@@ -164,7 +170,7 @@ Kafka คือ
 		<artifactId>spring-kafka-test</artifactId>
 	</dependency>
 ```
-Passay คือ 
+Passay คือ
 ```
     <dependency>
 		<groupId>org.passay</groupId>
@@ -172,7 +178,7 @@ Passay คือ
 		<version>1.6.4</version>
 	</dependency>
 ```
-Mapstruct คือ 
+Mapstruct คือ
 ```
     <dependency>
 		<groupId>org.mapstruct</groupId>
