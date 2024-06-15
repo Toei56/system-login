@@ -75,23 +75,25 @@ System Login ทำขึ้นเพื่อศึกษา Spring boot, Restf
        ├── util
        |   └── SecurityUtil.java
 ---
+* **Exception** เป็นการแบ่งตามสถานะของ HttpStatusCode
+---
 ## Dependencies
 PostgreSQL, JWT, Kafka, Passay, Mapstruct, Lombok, Spring JPA, Spring Security, Spring Validation, Spring Web, Spring Mail (Java Mail Sender), Spring Devtools, Spring Configuration Processor
 ### pom.xml
 Spring JPA คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-data-jpa</artifactId>
 	</dependency>
 ```
 Spring Security คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-security</artifactId>
 	</dependency>
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.security</groupId>
 		<artifactId>spring-security-test</artifactId>
 		<scope>test</scope>
@@ -99,14 +101,14 @@ Spring Security คือ
 ```
 Spring Validation ช่วยในการตรวจสอบความถูกต้องของข้อมูล
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-validation</artifactId>
 	</dependency>
 ```
 Spring Web คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
@@ -120,7 +122,7 @@ Spring Mail (Java Mail Sender) คือ
 ```
 Spring Devtools คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-devtools</artifactId>
 		<scope>runtime</scope>
@@ -129,7 +131,7 @@ Spring Devtools คือ
 ```
 Spring Configuration Processor คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-configuration-processor</artifactId>
 		<optional>true</optional>
@@ -137,7 +139,7 @@ Spring Configuration Processor คือ
 ```
 PostgreSQL (Spring PostgreSQL Driver) คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.postgresql</groupId>
 		<artifactId>postgresql</artifactId>
 		<scope>runtime</scope>
@@ -145,7 +147,7 @@ PostgreSQL (Spring PostgreSQL Driver) คือ
 ```
 Lombok คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok</artifactId>
 		<optional>true</optional>
@@ -153,7 +155,7 @@ Lombok คือ
 ```
 JWT คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>com.auth0</groupId>
 		<artifactId>java-jwt</artifactId>
 		<version>4.4.0</version>
@@ -161,18 +163,18 @@ JWT คือ
 ```
 Kafka คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.kafka</groupId>
 		<artifactId>spring-auth0</artifactId>
 	</dependency>
-    <dependency>
+	<dependency>
 		<groupId>org.springframework.kafka</groupId>
 		<artifactId>spring-kafka-test</artifactId>
 	</dependency>
 ```
 Passay คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.passay</groupId>
 		<artifactId>passay</artifactId>
 		<version>1.6.4</version>
@@ -180,7 +182,7 @@ Passay คือ
 ```
 Mapstruct คือ
 ```
-    <dependency>
+	<dependency>
 		<groupId>org.mapstruct</groupId>
 		<artifactId>mapstruct</artifactId>
 		<version>${org.mapstruct.version}</version>
