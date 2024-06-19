@@ -1,196 +1,218 @@
 # System Login Practice
+
 System Login ทำขึ้นเพื่อศึกษา Spring boot, Restful, Database, Kafka และการทำงานของระบบ
+
 ## Structure Modules
+
 * login (server backend, producer)
 * email (consumer)
 * common ทำหน้าที่เป็นตัวกลางเพื่อแชร์ข้อมูล email ให้กับ kafka
 
-**หลักการทำงานคร่าวๆ** เมื่อ user ทำการ register เข้ามา server จะทำการบันทึกข้อมูลลง database ในขณะเดียวกัน server ซึ่งเป็น producer จะทำการส่งข้อมูลที่เกี่ยวกับ email ไปให้กับทาง kafka และผู้รับ consumer ที่ทำหน้าที่ส่ง email จะทำการส่ง email แทน และเมื่อ user ทำการยืนยันอีเมลเรียบร้อยแล้ว จึงจะสามารถเข้าสู่ระบบได้
+**หลักการทำงานคร่าวๆ** เมื่อ user ทำการ register เข้ามา server จะทำการบันทึกข้อมูลลง database ในขณะเดียวกัน server
+ซึ่งเป็น producer จะทำการส่งข้อมูลที่เกี่ยวกับ email ไปให้กับทาง kafka และผู้รับ consumer ที่ทำหน้าที่ส่ง email
+จะทำการส่ง email แทน และเมื่อ user ทำการยืนยันอีเมลเรียบร้อยแล้ว จึงจะสามารถเข้าสู่ระบบได้
 ## Features
+
 * Java 17
 * Spring Boot 3
 * Rest API
+* Json
 * PostgreSQL
 * Kafka
 * Passay
 * JWT
 * Lombok
 * Mapstruct
----
-## Structure backend
-    └── src ─ main ─ java ─ com ─ example
 
-    ── login
-       ├── LoginApplication.java
-       |
-       ├── business
-       |   ├── EmailBusiness.java
-       |   └── UserBusiness.java
-       |
-       ├── config
-       |   └── token
-       |   │   └── TokenFilter.java
-       │   │
-       |   ├── AppConfig.java
-       |   ├── KafkaConfig.java
-       |   └── SecurityConfig.java
-       |
-       ├── controller
-       |   └── api
-       |   │   ├── TestApi.java
-       |   │   └── UserController.java
-       │   │
-       |   └── request
-       |       ├── ActivateRequest.java
-       |       ├── ActivateResponse.java
-       |       ├── ResendActivateEmailRequest.java
-       |       ├── UserLoginRequest.java
-       |       ├── UserLoginResponse.java
-       |       ├── UserRegisterRequest.java
-       |       └── UserRegisterResponse.java
-       |
-       ├── entityModel
-       |   ├── BaseModel.java
-       |   └── User.java
-       |
-       ├── exception
-       |   ├── BaseException.java
-       |   ├── EmailException.java
-       |   ├── ExceptionAdvice.java
-       |   ├── UserException.java
-       |   └── ValidateException.java
-       |
-       ├── mapper
-       |   └── UserMapper.java
-       |
-       ├── repository
-       |   └── UserRepository.java
-       |
-       ├── service
-       |   ├── TokenService.java
-       |   ├── TokenServiceImp.java
-       |   ├── UserService.java
-       |   └── UserServiceImp.java
-       |
-       ├── util
-       |   └── SecurityUtil.java
 ---
-* **Exception** เป็นการแบ่งตามสถานะของ HttpStatusCode
+
+## Structure backend
+
+    └── src/main/java/com/example
+
+        /login
+        ├── LoginApplication.java
+        |
+        ├── business
+        |   ├── EmailBusiness.java
+        |   └── UserBusiness.java
+        |
+        ├── config
+        |   ├── token
+        |   │   └── TokenFilter.java
+        │   │
+        |   ├── AppConfig.java
+        |   ├── KafkaConfig.java
+        |   └── SecurityConfig.java
+        |
+        ├── controller
+        |   ├── api
+        |   │   ├── TestApi.java
+        |   │   └── UserController.java
+        │   │
+        |   └── request
+        |       ├── ActivateRequest.java
+        |       ├── ActivateResponse.java
+        |       ├── ResendActivateEmailRequest.java
+        |       ├── UserLoginRequest.java
+        |       ├── UserLoginResponse.java
+        |       ├── UserRegisterRequest.java
+        |       └── UserRegisterResponse.java
+        |
+        ├── entityModel
+        |   ├── BaseModel.java
+        |   └── User.java
+        |
+        ├── exception
+        |   ├── BaseException.java
+        |   ├── EmailException.java
+        |   ├── ExceptionAdvice.java
+        |   ├── UserException.java
+        |   └── ValidateException.java
+        |
+        ├── mapper
+        |   └── UserMapper.java
+        |
+        ├── repository
+        |   └── UserRepository.java
+        |
+        ├── service
+        |   ├── TokenService.java
+        |   ├── TokenServiceImp.java
+        |   ├── UserService.java
+        |   └── UserServiceImp.java
+        |
+        ├── util
+        |   └── SecurityUtil.java
+
+    └── src/main
+
+        /resources
+            ├── email
+            |   └── email-activate-user.html
+            |
+            └── application.yml
 ---
-## Dependencies
-PostgreSQL, JWT, Kafka, Passay, Mapstruct, Lombok, Spring JPA, Spring Security, Spring Validation, Spring Web, Spring Mail (Java Mail Sender), Spring Devtools, Spring Configuration Processor
-### pom.xml
-Spring JPA คือ
+
+## ตัวอย่าง Rest APIs
+
+---
+### Auth
+
+| Method | Url                           | Sample Valid <br/>Request Body | Example of invalid <br/>response body | Example of invalid <br/>response body |
+|:------:|-------------------------------|:------------------------------:|:-------------------------------------:|:-------------------------------------:|
+|  POST  | /auth/register                |              JSON              |                 JSON                  |                 JSON                  |
+|  POST  | /auth/login                   |              JSON              |                 JSON                  |                 JSON                  |
+|  POST  | /auth/activate                |              JSON              |                 JSON                  |                 JSON                  |
+|  POST  | /auth/resend-activation-email |              JSON              |                                       |                 JSON                  |
+|  GET   | /auth/refresh-token           |                                |                 JSON                  |                                       |
+
+
+## ตัวอย่างเนื้อหาคำขอ JSON ที่ถูกต้อง
+
+---
+#### Sign Up -> /auth/register
+
+ตัวอย่างเนื้อหาคำขอที่ถูกต้อง
+```json
+{
+  "username": "Tonson",
+  "email": "spxth5735@gmail.com",
+  "password": "12345678",
+  "phone_number": "0900000000"
+}
 ```
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-data-jpa</artifactId>
-	</dependency>
+ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
+```json
+{
+  "username": "Tonson",
+  "email": "spxth5735@gmail.com"
+}
 ```
-Spring Security คือ
+ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (ไม่ได้ใส่ username)
+```json
+{
+  "timestamp": "2024-06-19T13:28:57.6911008",
+  "status": 400,
+  "error": "username : must not be empty"
+}
 ```
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-security</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework.security</groupId>
-		<artifactId>spring-security-test</artifactId>
-		<scope>test</scope>
-	</dependency>
+
+#### Log In -> /auth/login
+
+ตัวอย่างเนื้อหาคำขอที่ถูกต้อง
+```json
+{
+  "email": "spxth5735@gmail.com",
+  "password": "12345678"
+}
 ```
-Spring Validation ช่วยในการตรวจสอบความถูกต้องของข้อมูล
+ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJCYWNrZW5kU2VydmljZSIsInByaW5jaXBhbCI6MSwicm9sZSI6IlVTRVIiLCJleHAiOjE3MTg3ODIwMjZ9.084eDY-lf8-_UMNKHAQja-IxQse8VkiYPxLJ8S7yoTI"
+}
 ```
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-validation</artifactId>
-	</dependency>
+ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (ใส่ email หรือ password ผิด)
+```json
+{
+  "timestamp": "2024-06-19T13:56:22.6213411",
+  "status": 404,
+  "error": "user.login.fail"
+}
 ```
-Spring Web คือ
+
+#### Activate -> /auth/activate
+
+ตัวอย่างเนื้อหาคำขอที่ถูกต้อง
+```json
+{
+    "token": "2ovlunKx7j2BUUTXdYL3Yg6820h15J"
+}
 ```
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-web</artifactId>
-	</dependency>
+ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
+```json
+{
+    "success": true
+}
 ```
-Spring Mail (Java Mail Sender) คือ
+ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (token ผิด)
+```json
+{
+    "timestamp": "2024-06-19T13:54:03.057719",
+    "status": 400,
+    "error": "user.activate.fail"
+}
 ```
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-mail</artifactId>
-	</dependency>
+
+#### Resend Activation Email -> /auth/resend-activation-email
+
+ตัวอย่างเนื้อหาคำขอที่ถูกต้อง
+```json
+{
+    "email": "spxth5735@gmail.com"
+}
 ```
-Spring Devtools คือ
+ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
 ```
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-devtools</artifactId>
-		<scope>runtime</scope>
-		<optional>true</optional>
-	</dependency>
+    StatusCode : 200 OK.
+    
+    ![email](..%2F..%2F..%2FUsers%2Ftoeip%2FOneDrive%2F%C3%D9%BB%C0%D2%BE%2F%C0%D2%BE%CB%B9%E9%D2%A8%CD%2FScreenshot%202024-06-19%20152108.png)
 ```
-Spring Configuration Processor คือ
+ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (ใส่ email ไม่ถูกต้อง)
+```json
+{
+    "timestamp": "2024-06-19T13:43:23.1866123",
+    "status": 404,
+    "error": "user.resend.activation.fail"
+}
 ```
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-configuration-processor</artifactId>
-		<optional>true</optional>
-	</dependency>
-```
-PostgreSQL (Spring PostgreSQL Driver) คือ
-```
-	<dependency>
-		<groupId>org.postgresql</groupId>
-		<artifactId>postgresql</artifactId>
-		<scope>runtime</scope>
-	</dependency>
-```
-Lombok คือ
-```
-	<dependency>
-		<groupId>org.projectlombok</groupId>
-		<artifactId>lombok</artifactId>
-		<optional>true</optional>
-	</dependency>
-```
-JWT คือ
-```
-	<dependency>
-		<groupId>com.auth0</groupId>
-		<artifactId>java-jwt</artifactId>
-		<version>4.4.0</version>
-	</dependency>
-```
-Kafka คือ
-```
-	<dependency>
-		<groupId>org.springframework.kafka</groupId>
-		<artifactId>spring-auth0</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework.kafka</groupId>
-		<artifactId>spring-kafka-test</artifactId>
-	</dependency>
-```
-Passay คือ
-```
-	<dependency>
-		<groupId>org.passay</groupId>
-		<artifactId>passay</artifactId>
-		<version>1.6.4</version>
-	</dependency>
-```
-Mapstruct คือ
-```
-	<dependency>
-		<groupId>org.mapstruct</groupId>
-		<artifactId>mapstruct</artifactId>
-		<version>${org.mapstruct.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.mapstruct</groupId>
-		<artifactId>mapstruct-processor</artifactId>
-		<version>${org.mapstruct.version}</version>
-		<scope>provided</scope>
-	</dependency>
+
+#### Refresh token -> /auth/refresh-token
+
+ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJCYWNrZW5kU2VydmljZSIsInByaW5jaXBhbCI6MSwicm9sZSI6IlVTRVIiLCJleHAiOjE3MTg3ODYxNjJ9.F6vezzXiyVZQzh043IqGYIREqh9vcvMGWQpRLkIdfek"
+}
 ```
