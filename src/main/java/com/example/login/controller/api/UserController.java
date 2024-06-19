@@ -61,8 +61,8 @@ public class UserController {
     }
 
     @GetMapping("/refresh-token")
-    public ResponseEntity<String> refreshToken() {
-        String response = userBusiness.refreshToken();
+    public ResponseEntity<RefreshTonkenResponse> refreshToken() {
+        RefreshTonkenResponse response = userBusiness.refreshToken();
         return ResponseEntity.ok(response);
     }
 }

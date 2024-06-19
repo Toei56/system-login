@@ -58,9 +58,7 @@ public class SecurityConfig {
                 })
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authz -> authz
-                        .requestMatchers(PUBLIC).permitAll()
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests(authz -> authz.requestMatchers(PUBLIC).permitAll().anyRequest().authenticated())
                 .addFilterBefore(tokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(handling -> handling
                         .authenticationEntryPoint(

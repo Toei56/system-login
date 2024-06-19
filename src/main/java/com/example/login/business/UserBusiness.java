@@ -102,7 +102,6 @@ public class UserBusiness {
 
     private void sendEmail(User user) {
         String token = user.getToken();
-
         try {
             emailBusiness.sendActivateUserMail(user.getEmail(), user.getUsername(), token);
         } catch (Exception e) {
@@ -132,7 +131,7 @@ public class UserBusiness {
         return response;
     }
 
-    public String refreshToken() {
+    public RefreshTonkenResponse refreshToken() {
         Optional<Long> opt = SecurityUtil.getCurrentUserId();
         if (opt.isEmpty()) {
             throw UnauthorizedException.unauthorized();
@@ -146,6 +145,8 @@ public class UserBusiness {
         }
 
         User user = optUser.get();
-        return tokenService.tokenize(user);
+        RefreshTonkenResponse token = new RefreshTonkenResponse();
+        token.setToken(tokenService.tokenize(user));
+        return token;
     }
 }

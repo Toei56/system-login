@@ -28,10 +28,10 @@ public class User extends BaseModel {
     private String password;
 
     @Column
-    private String role;
+    private String phone_number;
 
     @Column
-    private String phone_number;
+    private String role;
 
     @Column
     private boolean activated;
