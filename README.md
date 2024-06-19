@@ -197,7 +197,7 @@ System Login ทำขึ้นเพื่อศึกษา Spring boot, Restf
 ```
     StatusCode : 200 OK.
     
-    ![email](Screenshot 2024-06-19 152108.png)
+    ![email](https://github.com/Toei56/system-login-backend/blob/97559cd9ae5ad0b8dab56206bd91ebd12473c2d6/Screenshot%202024-06-19%20152108.png)
 ```
 ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (ใส่ email ไม่ถูกต้อง)
 ```json
