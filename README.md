@@ -197,7 +197,7 @@ System Login ทำขึ้นเพื่อศึกษา Spring boot, Restf
 ```
     StatusCode : 200 OK.
     
-    ![email](..%2F..%2F..%2FUsers%2Ftoeip%2FOneDrive%2F%C3%D9%BB%C0%D2%BE%2F%C0%D2%BE%CB%B9%E9%D2%A8%CD%2FScreenshot%202024-06-19%20152108.png)
+    ![email](Screenshot 2024-06-19 152108.png)
 ```
 ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (ใส่ email ไม่ถูกต้อง)
 ```json
