@@ -9,10 +9,6 @@ public class NotFoundException extends RuntimeException {
         return new NotFoundException("user.login.fail");
     }
 
-    public static NotFoundException loginFailPasswordIncorrect() {
-        return new NotFoundException("user.login.fail");
-    }
-
     public static NotFoundException notFound() {
         return new NotFoundException("user.not.found");
     }

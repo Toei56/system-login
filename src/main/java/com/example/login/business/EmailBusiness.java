@@ -1,6 +1,7 @@
 package com.example.login.business;
 
 import com.example.login.common.EmailRequest;
+import com.example.login.entityModel.User;
 import com.example.login.exception.NotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -23,7 +24,7 @@ public class EmailBusiness {
         this.kafkaEmailTemplate = kafkaEmailTemplate;
     }
 
-    public void sendActivateUserMail(String email, String name, String token) {
+    public void sendActivateUserMail(User user) {
         String html;
         try {
             html = readEmailTemplate();
@@ -31,14 +32,14 @@ public class EmailBusiness {
             throw NotFoundException.templateNotFound();
         }
 
-        log.info("Token = " + token);
+        log.info("Token = " + user.getToken());
 
-        String finalLink = "http://localhost:3000/activate/" + token;
-        html = html.replace("${P_NAME}", name);
+        String finalLink = "http://localhost:3000/activate/" + user.getToken();
+        html = html.replace("${P_NAME}", user.getUsername());
         html = html.replace("${P_LINK}", finalLink);
 
         EmailRequest emailRequest = new EmailRequest();
-        emailRequest.setTo(email);
+        emailRequest.setTo(user.getEmail());
         emailRequest.setSubject("Please activate your account");
         emailRequest.setContent(html);
 

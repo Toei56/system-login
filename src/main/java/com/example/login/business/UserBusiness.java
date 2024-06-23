@@ -103,12 +103,12 @@ public class UserBusiness {
     private void sendEmail(User user) {
         String token = user.getToken();
         try {
-            emailBusiness.sendActivateUserMail(user.getEmail(), user.getUsername(), token);
+            emailBusiness.sendActivateUserMail(user);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        log.info("Token: " + token);
+        log.info("Token: " + user.getToken());
     }
 
     public UserLoginResponse login(UserLoginRequest loginRequest) {
@@ -119,7 +119,7 @@ public class UserBusiness {
 
         User user = opt.get();
         if (!userService.matchPassword(loginRequest.getPassword(), user.getPassword())) {
-            throw NotFoundException.loginFailPasswordIncorrect();
+            throw UnauthorizedException.loginFailPasswordIncorrect();
         }
 
         if (!user.isActivated()) {

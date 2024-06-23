@@ -9,4 +9,9 @@ public class UnauthorizedException extends RuntimeException {
         return new UnauthorizedException("user.unauthorized");
     }
 
+    public static UnauthorizedException loginFailPasswordIncorrect() {
+        return new UnauthorizedException("user.login.fail");
+    }
+
+
 }

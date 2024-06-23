@@ -1,6 +1,7 @@
 package com.example.login;
 
 import com.example.login.business.EmailBusiness;
+import com.example.login.entityModel.User;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -17,16 +18,13 @@ public class TestEmailBusiness {
 
     @Order(1)
     @Test
-    void testSendActivateEmail() throws BaseException {
-        emailBusiness.sendActivateUserMail(
-                TestDataEmail.email,
-                TestDataEmail.name,
-                TestDataEmail.token);
+    void testSendActivateEmail(TestDataEmail testDataEmail) {
+        emailBusiness.sendActivateUserMail((User) testDataEmail);
     }
 
     interface TestDataEmail {
         String email = "spxth5735@gmail.com";
-        String name = "SPXTH5735";
+        String username = "SPXTH5735";
         String token = "token.jwt.1234";
     }
 }
