@@ -49,7 +49,7 @@ public class UserBusiness {
 
         Optional<User> opt = userService.findByToken(token);
         if (opt.isEmpty()) {
-            throw BadRequestException.activateFail();
+            throw NotFoundException.activateFail();
         }
 
         User user = opt.get();

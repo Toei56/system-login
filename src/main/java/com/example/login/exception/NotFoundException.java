@@ -5,12 +5,16 @@ public class NotFoundException extends RuntimeException {
         super(message);
     }
 
+    public static NotFoundException notFound() {
+        return new NotFoundException("user.not.found");
+    }
+
     public static NotFoundException loginFailEmailNotFound() {
         return new NotFoundException("user.login.fail");
     }
 
-    public static NotFoundException notFound() {
-        return new NotFoundException("user.not.found");
+    public static NotFoundException activateFail() {
+        return new NotFoundException("user.activate.fail");
     }
 
     public static NotFoundException resendActivationEmailNotFound() {
