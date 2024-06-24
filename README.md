@@ -91,6 +91,10 @@ System Login ทำขึ้นเพื่อศึกษา Spring boot, Restf
             ├── email
             |   └── email-activate-user.html
             |
+            ├── static
+            |   └── images
+            |   └── SequenceDiagram
+            |
             └── application.yml
 ---
 
@@ -99,120 +103,25 @@ System Login ทำขึ้นเพื่อศึกษา Spring boot, Restf
 ---
 ### Auth
 
-| Method | Url                           | Sample Valid <br/>Request Body | Example of invalid <br/>response body | Example of invalid <br/>response body |
+| Method | Url                           | Sample Valid <br/>Request Body | Example of Invalid <br/>Response Body | Example of Invalid <br/>Response Body |
 |:------:|-------------------------------|:------------------------------:|:-------------------------------------:|:-------------------------------------:|
 |  POST  | /auth/register                |              JSON              |                 JSON                  |                 JSON                  |
 |  POST  | /auth/login                   |              JSON              |                 JSON                  |                 JSON                  |
 |  POST  | /auth/activate                |              JSON              |                 JSON                  |                 JSON                  |
-|  POST  | /auth/resend-activation-email |              JSON              |                                       |                 JSON                  |
+|  POST  | /auth/resend-activation-email |              JSON              |              HttpStatus               |                 JSON                  |
 |  GET   | /auth/refresh-token           |                                |                 JSON                  |                                       |
 
 
-## ตัวอย่างเนื้อหาคำขอ JSON ที่ถูกต้อง
+## Sequence Diagram
 
 ---
 #### Sign Up -> /auth/register
-
-ตัวอย่างเนื้อหาคำขอที่ถูกต้อง
-```json
-{
-  "username": "Tonson",
-  "email": "spxth5735@gmail.com",
-  "password": "12345678",
-  "phone_number": "0900000000"
-}
-```
-ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
-```json
-{
-  "username": "Tonson",
-  "email": "spxth5735@gmail.com"
-}
-```
-ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (ไม่ได้ใส่ username)
-```json
-{
-  "timestamp": "2024-06-19T13:28:57.6911008",
-  "status": 400,
-  "error": "username : must not be empty"
-}
-```
-
+![register](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/Register.png)
 #### Log In -> /auth/login
-
-ตัวอย่างเนื้อหาคำขอที่ถูกต้อง
-```json
-{
-  "email": "spxth5735@gmail.com",
-  "password": "12345678"
-}
-```
-ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJCYWNrZW5kU2VydmljZSIsInByaW5jaXBhbCI6MSwicm9sZSI6IlVTRVIiLCJleHAiOjE3MTg3ODIwMjZ9.084eDY-lf8-_UMNKHAQja-IxQse8VkiYPxLJ8S7yoTI"
-}
-```
-ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (ใส่ email หรือ password ผิด)
-```json
-{
-  "timestamp": "2024-06-19T13:56:22.6213411",
-  "status": 404,
-  "error": "user.login.fail"
-}
-```
-
+![login](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/Login.png)
 #### Activate -> /auth/activate
-
-ตัวอย่างเนื้อหาคำขอที่ถูกต้อง
-```json
-{
-    "token": "2ovlunKx7j2BUUTXdYL3Yg6820h15J"
-}
-```
-ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
-```json
-{
-    "success": true
-}
-```
-ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (token ผิด)
-```json
-{
-    "timestamp": "2024-06-19T13:54:03.057719",
-    "status": 400,
-    "error": "user.activate.fail"
-}
-```
-
+![activate](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/Activate.png)
 #### Resend Activation Email -> /auth/resend-activation-email
-
-ตัวอย่างเนื้อหาคำขอที่ถูกต้อง
-```json
-{
-    "email": "spxth5735@gmail.com"
-}
-```
-ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
-```
-    StatusCode : 200 OK.
-```
-![email](https://github.com/Toei56/system-login-backend/blob/97559cd9ae5ad0b8dab56206bd91ebd12473c2d6/Screenshot%202024-06-19%20152108.png)
-
-ตัวอย่างเนื้อหาการตอบกลับที่ไม่ถูกต้อง (ใส่ email ไม่ถูกต้อง)
-```json
-{
-    "timestamp": "2024-06-19T13:43:23.1866123",
-    "status": 404,
-    "error": "user.resend.activation.fail"
-}
-```
-
+![resend-activation-email](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/ResendActivateEmail.png)
 #### Refresh token -> /auth/refresh-token
-
-ตัวอย่างเนื้อหาการตอบกลับที่ถูกต้อง
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJCYWNrZW5kU2VydmljZSIsInByaW5jaXBhbCI6MSwicm9sZSI6IlVTRVIiLCJleHAiOjE3MTg3ODYxNjJ9.F6vezzXiyVZQzh043IqGYIREqh9vcvMGWQpRLkIdfek"
-}
-```
+![refresh-token](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/RefreshTonken.png)
