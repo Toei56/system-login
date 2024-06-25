@@ -24,6 +24,7 @@ public class SecurityConfig {
     private final TokenService tokenService;
 
     private final String[] PUBLIC = {
+            "/test/**",
             "/actuator/**",
             "/auth/register",
             "/auth/login",

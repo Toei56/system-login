@@ -55,13 +55,15 @@ public class EmailBusiness {
     }
 
     private void handleFailure(Throwable throwable) {
-        log.error("Kafka send fail");
-        log.error(throwable);
+//        log.error(throwable);
+        log.error("Kafka failed to send message: " + throwable.getMessage());
     }
 
     private void handleSuccess(SendResult<String, EmailRequest> result) {
-        log.info("Kafka send success");
-        log.info(result);
+//        log.info(result);
+        log.info("Kafka message sent successfully to topic: " + result.getRecordMetadata().topic());
+        log.info("Partition: " + result.getRecordMetadata().partition());
+        log.info("Offset: " + result.getRecordMetadata().offset());
     }
 
     private String readEmailTemplate() throws IOException {

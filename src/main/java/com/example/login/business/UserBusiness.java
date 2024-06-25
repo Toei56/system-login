@@ -101,7 +101,6 @@ public class UserBusiness {
     }
 
     private void sendEmail(User user) {
-        String token = user.getToken();
         try {
             emailBusiness.sendActivateUserMail(user);
         } catch (Exception e) {
