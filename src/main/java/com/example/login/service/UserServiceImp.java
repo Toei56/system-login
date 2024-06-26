@@ -4,6 +4,7 @@ import com.example.login.controller.request.UserRegisterRequest;
 import com.example.login.entityModel.User;
 import com.example.login.exception.ConflictException;
 import com.example.login.repository.UserRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
@@ -45,6 +47,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public Optional<User> findById(Long id) {
+        log.info("Load user from DB : " + id);
         return userRepository.findById(id);
     }
 
@@ -54,8 +57,13 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User update(User user) {
+    public User updateUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
     @Override

@@ -29,6 +29,6 @@ public class TestApi {
 //        return new ResponseEntity<>("Response with custom header", headers, HttpStatus.OK);
         return ResponseEntity.ok()
                 .headers(headers)
-                .body("123");
+                .body("Test");
     }
 }

@@ -34,3 +34,11 @@ spring:
       - localhost:9092
     consumer:
       group-id: "my-awesome-app"
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000

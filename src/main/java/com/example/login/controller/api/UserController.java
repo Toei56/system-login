@@ -65,4 +65,10 @@ public class UserController {
         RefreshTonkenResponse response = userBusiness.refreshToken();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfile> getMyUserProfile() {
+        UserProfile response = userBusiness.getMyUserProfile();
+        return ResponseEntity.ok(response);
+    }
 }

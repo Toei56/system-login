@@ -65,7 +65,7 @@ public class UserBusiness {
         }
 
         user.setActivated(true);
-        userService.update(user);
+        userService.updateUser(user);
 
         ActivateResponse activate = new ActivateResponse();
         activate.setSuccess(true);
@@ -90,7 +90,7 @@ public class UserBusiness {
 
         user.setToken(SecurityUtil.generateToken());
         user.setTokenExpire(nextHour());
-        user = userService.update(user);
+        user = userService.updateUser(user);
         sendEmail(user);
     }
 
@@ -147,5 +147,21 @@ public class UserBusiness {
         RefreshTonkenResponse token = new RefreshTonkenResponse();
         token.setToken(tokenService.tokenize(user));
         return token;
+    }
+
+    public UserProfile getMyUserProfile() {
+        Optional<Long> opt = SecurityUtil.getCurrentUserId();
+        if (opt.isEmpty()) {
+            throw UnauthorizedException.unauthorized();
+        }
+
+        Long userId = opt.get();
+
+        Optional<User> optUser = userService.findById(userId);
+        if (optUser.isEmpty()) {
+            throw NotFoundException.notFound();
+        }
+
+        return userMapper.toUserProfile(optUser.get());
     }
 }
