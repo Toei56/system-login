@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ResendActivateEmailRequest {
 
-    private String email;
+    private String token;
 }

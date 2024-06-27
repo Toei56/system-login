@@ -13,8 +13,8 @@ public class BadRequestException extends RuntimeException {
         return new BadRequestException("user.activate.no.token");
     }
 
-    public static BadRequestException resendActivationNoEmail() {
-        return new BadRequestException("user.activation.no.email");
+    public static BadRequestException resendActivationNoToken() {
+        return new BadRequestException("user.activation.no.token");
     }
 
 }

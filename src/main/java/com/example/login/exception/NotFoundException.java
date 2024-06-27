@@ -17,7 +17,7 @@ public class NotFoundException extends RuntimeException {
         return new NotFoundException("user.activate.fail");
     }
 
-    public static NotFoundException resendActivationEmailNotFound() {
+    public static NotFoundException resendActivationTokenlNotFound() {
         return new NotFoundException("user.resend.activation.fail");
     }
 
