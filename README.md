@@ -91,6 +91,10 @@ System Login ทำขึ้นเพื่อศึกษา Spring boot, Restf
             ├── email
             |   └── email-activate-user.html
             |
+            ├── static
+            |   └── images
+            |   └── SequenceDiagram
+            |
             └── application.yml
 ---
 
@@ -107,6 +111,7 @@ System Login ทำขึ้นเพื่อศึกษา Spring boot, Restf
 |  POST  | /auth/resend-activation-email |              JSON              |              HttpStatus               |                 JSON                  |
 |  GET   | /auth/refresh-token           |                                |                 JSON                  |                                       |
 
+<<<<<<< HEAD
 ---
 #### Sign Up -> /auth/register
 
@@ -118,3 +123,18 @@ System Login ทำขึ้นเพื่อศึกษา Spring boot, Restf
 
 #### Refresh token -> /auth/refresh-token
 
+=======
+
+## Sequence Diagram
+
+---
+#### Sign Up -> /auth/register
+![register](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/Register.png)
+#### Log In -> /auth/login
+![login](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/Login.png)
+#### Activate -> /auth/activate
+![activate](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/Activate.png)
+#### Resend Activation Email -> /auth/resend-activation-email
+![resend-activation-email](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/ResendActivateEmail.png)
+#### Refresh token -> /auth/refresh-token
+![refresh-token](https://github.com/Toei56/system-login-backend/blob/40d34ed2cf641e94cccd6610cb8e22a0600d553a/src/main/resources/static/Sequence%20Diagram/RefreshTonken.png)
