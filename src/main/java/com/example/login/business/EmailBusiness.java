@@ -34,9 +34,11 @@ public class EmailBusiness {
 
         log.info("Token = " + user.getToken());
 
-        String finalLink = "http://localhost:3000/activate/" + user.getToken();
+        String activateLink = "http://localhost:3000/auth/activate/" + user.getToken();
+        String reEmailLink = "http://localhost:3000/auth/resend-activation-email/" + user.getToken();
         html = html.replace("${P_NAME}", user.getUsername());
-        html = html.replace("${P_LINK}", finalLink);
+        html = html.replace("${ACTIVATE_LINK}", activateLink);
+        html = html.replace("${RE_EMAIL_LINK}", reEmailLink);
 
         EmailRequest emailRequest = new EmailRequest();
         emailRequest.setTo(user.getEmail());

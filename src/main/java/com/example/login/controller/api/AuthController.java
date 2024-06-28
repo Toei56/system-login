@@ -60,10 +60,4 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/refresh-token")
-    public ResponseEntity<RefreshTonkenResponse> refreshToken() {
-        RefreshTonkenResponse response = authBusiness.refreshToken();
-        return ResponseEntity.ok(response);
-    }
-
 }

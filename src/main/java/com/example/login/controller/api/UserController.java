@@ -1,9 +1,11 @@
 package com.example.login.controller.api;
 
 import com.example.login.business.UserBusiness;
+import com.example.login.controller.request.RefreshTonkenResponse;
 import com.example.login.controller.request.UserProfile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,4 +24,16 @@ public class UserController {
         UserProfile response = userBusiness.getMyUserProfile();
         return ResponseEntity.ok(response);
     }
+
+//    @PutMapping("/edit")
+//    public ResponseEntity<UserProfile> putUser() {
+//        UserProfile profile = userBusiness
+//    }
+
+    @GetMapping("/refresh-token")
+    public ResponseEntity<RefreshTonkenResponse> refreshToken() {
+        RefreshTonkenResponse response = userBusiness.refreshToken();
+        return ResponseEntity.ok(response);
+    }
+
 }

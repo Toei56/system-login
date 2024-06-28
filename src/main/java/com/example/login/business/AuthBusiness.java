@@ -130,24 +130,4 @@ public class AuthBusiness {
         return response;
     }
 
-    public RefreshTonkenResponse refreshToken() {
-        Optional<Long> opt = SecurityUtil.getCurrentUserId();
-        if (opt.isEmpty()) {
-            throw UnauthorizedException.unauthorized();
-        }
-
-        Long userId = opt.get();
-
-        Optional<User> optUser = authService.findById(userId);
-        if (optUser.isEmpty()) {
-            throw NotFoundException.notFound();
-        }
-
-        User user = optUser.get();
-        RefreshTonkenResponse token = new RefreshTonkenResponse();
-        token.setToken(tokenService.tokenize(user));
-        return token;
-    }
-
-
 }

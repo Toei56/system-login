@@ -5,11 +5,13 @@ import com.example.login.service.TokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,15 +24,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final TokenService tokenService;
-
-    private final String[] PUBLIC = {
-            "/test/**",
-            "/actuator/**",
-            "/auth/register",
-            "/auth/login",
-            "/auth/activate",
-            "/auth/resend-activation-email"
-    };
 
     public SecurityConfig(TokenService tokenService) {
         this.tokenService = tokenService;
@@ -45,12 +38,19 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    private final String[] PUBLIC = {
+            "/test/**",
+            "/actuator/**",
+            "/auth/**"
+    };
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authz -> authz.requestMatchers(HttpMethod.GET,"/user/**").hasRole("USER"))
                 .authorizeHttpRequests(authz -> authz.requestMatchers(PUBLIC).permitAll().anyRequest().authenticated())
+                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(tokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(handling -> handling
                         .authenticationEntryPoint(

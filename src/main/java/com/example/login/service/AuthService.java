@@ -20,7 +20,7 @@ public interface AuthService {
 
     Optional<User> findByToken(String token);
 
-    @CachePut(value = "user", key = "#id")
+//    @CachePut(value = "user", key = "#user.id")
     User updateUser(User user);
 
     @CacheEvict(value = "user", key = "#id") //ถ้าลบทั้งหมด เปลี่ยน key เป็น allEntries = true

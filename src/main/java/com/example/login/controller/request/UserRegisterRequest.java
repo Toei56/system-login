@@ -26,8 +26,8 @@ public class UserRegisterRequest {
     private String password;
 
     @Size(min = 10, max = 10)
-    private String phone_number;
+    private String phone_number = "0909999999";
 
-    private String role = "USER";
+    private String role = "ROLE_USER";
 
 }
