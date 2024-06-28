@@ -32,7 +32,7 @@ public class User extends BaseModel implements Serializable {
     private String phone_number;
 
     @Column
-    private String role;
+    private String role = "ROLE_USER";
 
     @Column
     private boolean activated;

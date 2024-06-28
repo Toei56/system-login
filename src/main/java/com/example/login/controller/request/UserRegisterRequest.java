@@ -28,6 +28,4 @@ public class UserRegisterRequest {
     @Size(min = 10, max = 10)
     private String phone_number = "0909999999";
 
-    private String role = "ROLE_USER";
-
 }

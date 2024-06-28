@@ -25,11 +25,6 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-//    @PutMapping("/edit")
-//    public ResponseEntity<UserProfile> putUser() {
-//        UserProfile profile = userBusiness
-//    }
-
     @GetMapping("/refresh-token")
     public ResponseEntity<RefreshTonkenResponse> refreshToken() {
         RefreshTonkenResponse response = userBusiness.refreshToken();
